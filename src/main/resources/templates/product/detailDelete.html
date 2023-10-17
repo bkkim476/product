@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품삭제</title>
+</head>
+<body>
+<h3>상품삭제</h3>
+<form action="" method="post" th:object="${detailForm}">
+  <div><label for="productId">상품번호</label><input type="text" id="productId" name="productId" readonly th:value="*{productId}"></div>
+  <div><label for="pname">상품명</label><input type="text" id="pname" name="pname" readonly th:value="*{pname}"></div>
+  <div><label for="quantity">수량</label><input type="text" id="quantity" name="quantity" readonly th:value="*{quantity}"></div>
+  <div><label for="price">가격</label><input type="text" id="price" name="price" readonly th:value="*{price}"></div>
+  <div>
+    <input type="button" value="삭제" id="btnDelete" th:data-product-id="*{productId}">
+    <input type="button" value="목록" id="btnFindAll">
+    <input type="button" value="메인" id="btnMain">
+  </div>
+</form>
+<script>
+    //삭제
+    document.getElementById('btnDelete').addEventListener('click', e=>{
+      if(confirm('삭제하시겠습니까?')){
+        const productId = e.target.dataset.productId;
+
+        //case1) get방식 요청
+        //location.href=`/products/${productId}/del`;
+
+        //case2) delete방식 요청
+        (async ()=>{
+          const url = `/products/${productId}`;
+          const option = {
+            method:'DELETE'
+          }
+          const result = await fetch(url,option);
+          location.href = '/products';
+        })();
+      }
+    });
+
+    //목록
+    document.getElementById('btnFindAll').addEventListener('click',e=>{
+      location.href='/products';   // get방식으로 url요청
+    });
+
+    //메인
+    document.getElementById('btnMain').addEventListener('click',e=>{
+      location.href='/products/main';   // get방식으로 url요청
+    });
+
+  </script>
+</body>
+</html>

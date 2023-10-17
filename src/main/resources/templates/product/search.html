@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>조회화면</title>
+</head>
+<body>
+<h3>상품조회</h3>
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>상품번호</th>
+      <th>상품명</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product :${all}">
+      <td th:text="${product.productId}">1</td>
+      <td ><a href="" th:href="@{/products/{id}/detail(id=${product.productId})}" th:text="${product.pname}">컴퓨터</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div><button id="btnAdd">메인화면</button></div>
+<script>
+    btnAdd.addEventListener('click', e=>{
+      location.href = '/products/main';
+    });
+  </script>
+</body>
+</html>
